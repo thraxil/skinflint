@@ -1,0 +1,64 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{budget.name}}</h2>
+
+<p>current balance: {{ budget.balance }}</p>
+<p>amount: {{ budget.amount }}</p>
+<p><a href="/admin/finance/budget/{{budget.id}}/">edit</a></p>
+
+<form action="add_expense/" method="post">
+  <h3>add expense</h3>
+  <table>
+    {{ addexpenseform.as_table }}
+  </table>
+  <input type="submit" value="add" />
+</form>
+
+<form action="transfer/" method="post">
+  <h3>transfer</h3>
+  <table>
+    <tr>
+      <th>amount</th>
+      <td><input type="text" name="amount" id="transfer-amount" /></td>
+    </tr>
+    <tr>
+      <th>to</th>
+      <td>
+	<select name="target">
+	  {% for b in all_budgets %}
+	  {%  ifnotequal budget.id  b.id %}
+	  <option value="{{b.id}}">{{b.name}}</option>
+	  {% endifnotequal %}
+	  {% endfor %}
+	</select>
+  </table>
+  <input type="submit" value="transfer"/>
+</form>
+
+<h3>incomes</h3>
+<table>
+{% for income in budget.income_set.all %}
+<tr>
+  <th>{{income.label}}</th>
+  <td>{{income.when}}</td>
+  <td>{{income.amount}}</td>
+</tr>
+{% endfor %}
+</table>
+
+<h3>expenses</h3>
+<table>
+{% for expense in budget.expense_set.all %}
+<tr>
+  <th>{{expense.label}}</th>
+  <td>{{expense.when}}</td>
+  <td>{{expense.amount}}</td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+

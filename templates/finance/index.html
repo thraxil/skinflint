@@ -1,0 +1,21 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+<table>
+  <tr>
+    <th>budget</th>
+    <th>current balance</th>
+  </tr>
+
+  {% for budget in budgets %}
+  <tr class="{% cycle 'even' 'odd'%}">
+    <th><a href="{{budget.get_absolute_url}}">{{budget.name}}</a></th>
+    <td>${{budget.balance}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<p>total balance: ${{total}}</p>
+
+{% endblock %}

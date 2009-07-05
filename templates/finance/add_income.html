@@ -1,0 +1,58 @@
+{%  extends 'base.html' %}
+
+{% block js %}
+<script type="application/javascript"
+	src="/site_media/js/mochikit/MochiKit/MochiKit.js"></script>
+
+<script type="application/javascript" src="/site_media/js/income.js">
+</script>
+
+{% endblock js %}
+
+{% block content %}
+<form action="." method="post">
+
+<input type="text" size="50" id="messages"  />
+
+<table>
+  <tr>
+    <th>
+      Income:
+    </th>
+    <td>
+      <input type="text" name="total_income" id="total-income" 
+	     onblur="update_budgets()"/>
+    </td>
+  </tr>
+
+  <tr>
+    <th>
+      Label:
+    </th>
+    <td>
+      <input type="text" name="label" id="label" />
+    </td>
+  </tr>
+
+
+  <tr>
+    <th>
+      Date:
+    </th>
+    <td>
+      <input type="text" name="date" id="date" onblur="update_budgets()"/>
+    </td>
+  </tr>
+
+  {% for budget in budgets %}
+  <tr>
+    <th>{{budget.name}}</th>
+    <td><input class="budget" type="text" name="income_{{budget.id}}"
+    value="{{budget.amount}}" id="income-{{budget.name}}" 
+	       onblur="update_budgets()"
+	       /></td>
+  </tr>
+  {% endfor %}
+</table>
+<input type="submit" value="add income" />
+{% endblock %}

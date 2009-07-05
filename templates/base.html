@@ -1,0 +1,26 @@
+<html>
+<head><title>skinflint: {% block title %}{% endblock %}</title>
+
+<style media="screen" type="text/css">
+@import "/site_media/css/site.css" ;
+</style>
+
+{% block css %}{% endblock %}
+{% block js %}{% endblock %}
+{% block feeds %}{% endblock %}
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+
+<div id="wrapper">
+<div id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</div>
+<div id="nav">
+<a href="/">/</a>
+<a href="/add_budget/">add budget</a>
+<a href="/add_income/">income</a>
+{% block nav %}{% endblock %}
+</div>
+
+{% block content %}{% endblock %}
+</div>
+{% block footer %}{% endblock %}
+</body></html>
