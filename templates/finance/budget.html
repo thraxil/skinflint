@@ -51,10 +51,10 @@
 <h3>expenses</h3>
 <table>
 {% for expense in budget.expense_set.all %}
-<tr>
+<tr class="{% cycle 'even' 'odd'%}">
   <th>{{expense.label}}</th>
   <td>{{expense.when}}</td>
-  <td>{{expense.amount}}</td>
+  <td>${{expense.amount}}</td>
 </tr>
 {% endfor %}
 </table>
