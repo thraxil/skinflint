@@ -101,6 +101,8 @@ def transfer(request,id):
         i = Income.objects.create(budget=target,amount=amount,when=when,
                                   label="transfer from %s" % source.name)
         target.balance += amount
+        source.save()
+        target.save()
     return HttpResponseRedirect('/')
 
     
