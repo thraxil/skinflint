@@ -87,6 +87,7 @@
   <th>date</th>
   <th>label</th>
   <th>amount</th>
+  <th>balance</th>
 </tr>
 
 {% for entry in budget.ledger %}
@@ -94,6 +95,7 @@
   <th class="date">{% ifchanged entry.when %}{{ entry.when|date:"M d" }}{% endifchanged %}</th>
   <td>{{ entry.label }}</td>
   <td class="amount">${{ entry.amount }}</td>
+  <td class="amount">${{ entry.running_total }}</td>
 </tr>
 {% endfor %}
 </table>

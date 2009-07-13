@@ -12,6 +12,7 @@
   <th>label</th>
   <th>budget</th>
   <th>amount</th>
+  <th>balance</th>
 </tr>
 
 {% for entry in ledger %}
@@ -20,6 +21,7 @@
   <td>{{ entry.label }}</td>
   <td><a href="{{entry.budget.get_absolute_url}}">{{ entry.budget.name }}</a></td>
   <td class="amount">${{ entry.amount }}</td>
+  <td class="amount">${{ entry.running_total }}</td>
 </tr>
 {% endfor %}
 </table>

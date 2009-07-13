@@ -31,6 +31,13 @@ class Budget(models.Model):
         incomes = list(Income.objects.filter(budget=self,when__gte=cutoff))
         together = expenses + incomes
         together.sort(lambda a,b: cmp(b.when,a.when))
+        running_total = self.balance
+        for entry in together:
+            entry.running_total = running_total
+            if entry.is_expense():
+                running_total = running_total + entry.amount
+            else:
+                running_total -= entry.amount
         return together
 
     def stats(self,days=30):
@@ -81,6 +88,13 @@ def ledger(days=30):
     incomes = list(Income.objects.filter(when__gte=cutoff))
     together = expenses + incomes
     together.sort(lambda a,b: cmp(b.when,a.when))
+    running_total=sum([b.balance for b in Budget.objects.all()])
+    for entry in together:
+        entry.running_total = running_total
+        if entry.is_expense():
+            running_total = running_total + entry.amount
+        else:
+            running_total -= entry.amount    
     return together
 
 def stats(days=30):

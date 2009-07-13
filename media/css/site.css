@@ -109,5 +109,5 @@ h3 {font-size: 1em; width: 100%; background-color: #efe; border-top: #ddd solid 
 
 table.ledger {border: #aaa solid 1px; border-collapse: collapse; margin-right: 2em;}
 table.ledger td {border-bottom: #aaa solid 1px; padding: 0px;}
-table.ledger th {border-bottom: #aaa solid 1px; padding: 0px;}
+table.ledger th {border-bottom: #aaa solid 1px; padding: 0px; padding-left: .5em;}
 
