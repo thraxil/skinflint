@@ -33,6 +33,14 @@ class Budget(models.Model):
         together.sort(lambda a,b: cmp(b.when,a.when))
         return together
 
+    def stats(self,days=30):
+        """ return total expenses, total incomes, and difference """
+        cutoff = datetime.now() - timedelta(days=days)
+        expenses = sum([e.amount for e in Expense.objects.filter(budget=self,when__gte=cutoff)])
+        incomes = sum([i.amount for i in Income.objects.filter(budget=self,when__gte=cutoff)])    
+        return dict(expenses=expenses,incomes=incomes,net=incomes-expenses)
+
+
 class Income(models.Model):
     label = models.CharField(max_length=256)
     amount = models.IntegerField()

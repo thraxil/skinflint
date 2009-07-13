@@ -79,6 +79,9 @@ def budget(request,id):
                 addexpenseform=AddExpenseForm({'when':date.today().isoformat()}),
                 transferform=budget.get_transfer_form(),
                 all_budgets=Budget.objects.all(),
+                stats_week=budget.stats(days=7),
+                stats_month=budget.stats(days=30),
+                stats_year=budget.stats(days=365),
                 )
 
 @login_required

@@ -4,11 +4,47 @@
 
 <h2>{{budget.name}}</h2>
 
+
+<table>
+<tr>
+<td colspan="2">
 <p>current balance: {{ budget.balance }}</p>
 <p>amount: {{ budget.amount }}</p>
 <p><a href="/admin/finance/budget/{{budget.id}}/">edit</a></p>
 
-<table>
+<table class="ledger" style="width: 100%">
+  <tr class="even">
+    <th></th>
+    <th>year</th>
+    <th>month</th>
+    <th>week</th>
+  </tr>
+
+  <tr class="odd income">
+    <th>income</th>
+    <td class="amount">${{ stats_year.incomes }}</td>
+    <td class="amount">${{ stats_month.incomes }}</td>
+    <td class="amount">${{ stats_week.incomes }}</td>
+  </tr>
+
+  <tr class="even">
+    <th>expense</th>
+    <td class="amount">${{ stats_year.expenses }}</td>
+    <td class="amount">${{ stats_month.expenses }}</td>
+    <td class="amount">${{ stats_week.expenses }}</td>
+  </tr>
+
+  <tr class="odd">
+    <th>net</th>
+    <td class="amount">${{ stats_year.net }}</td>
+    <td class="amount">${{ stats_month.net }}</td>
+    <td class="amount">${{ stats_week.net }}</td>
+  </tr>
+</table>
+</td>
+</tr>
+
+
 <tr>
 <td>
 <form action="add_expense/" method="post">
