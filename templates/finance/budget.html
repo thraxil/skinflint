@@ -1,5 +1,5 @@
 {%  extends 'base.html' %}
-
+{% block title %}summary{% endblock %}
 {% block content %}
 
 <h2>{{budget.name}}</h2>
@@ -46,7 +46,7 @@
 <tr>
 <td colspan="2">
 
-<table style="width: 100%">
+<table style="width: 100%" class="ledger">
 <tr>
   <th>date</th>
   <th>label</th>

@@ -29,6 +29,9 @@ class rendered_with(object):
 def index(request):
     return dict(budgets=Budget.objects.all(),
                 ledger=ledger(days=30),
+                stats_week=stats(days=7),
+                stats_month=stats(days=30),
+                stats_year=stats(days=365),
                 total=sum([b.balance for b in Budget.objects.all()]))
 
 @login_required

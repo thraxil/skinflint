@@ -1,12 +1,12 @@
 {%  extends 'base.html' %}
+{% block title %}summary{% endblock %}
 {% block content %}
-
-<p>current balance: <b>${{total}}</b></p>
 
 <table>
 <tr>
 <td>
-<table>
+  <h2>recent transactions</h2>
+<table class="ledger">
 <tr>
   <th>date</th>
   <th>label</th>
@@ -25,7 +25,41 @@
 </table>
 </td>
 <td>
-<table>
+<h2>summary</h2>
+<p>current balance: <b>${{total}}</b></p>
+<table class="ledger" style="width: 100%">
+  <tr class="even">
+    <th></th>
+    <th>year</th>
+    <th>month</th>
+    <th>week</th>
+  </tr>
+
+  <tr class="odd income">
+    <th>income</th>
+    <td class="amount">${{ stats_year.incomes }}</td>
+    <td class="amount">${{ stats_month.incomes }}</td>
+    <td class="amount">${{ stats_week.incomes }}</td>
+  </tr>
+
+  <tr class="even">
+    <th>expense</th>
+    <td class="amount">${{ stats_year.expenses }}</td>
+    <td class="amount">${{ stats_month.expenses }}</td>
+    <td class="amount">${{ stats_week.expenses }}</td>
+  </tr>
+
+  <tr class="odd">
+    <th>net</th>
+    <td class="amount">${{ stats_year.net }}</td>
+    <td class="amount">${{ stats_month.net }}</td>
+    <td class="amount">${{ stats_week.net }}</td>
+  </tr>
+</table>
+
+
+<h3>budgets</h3>
+<table class="ledger" style="width: 100%">
   <tr>
     <th>budget</th>
     <th>current balance</th>
@@ -38,6 +72,7 @@
   </tr>
   {% endfor %}
 </table>
+
 </td>
 </tr>
 </table>

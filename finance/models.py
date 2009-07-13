@@ -74,3 +74,10 @@ def ledger(days=30):
     together = expenses + incomes
     together.sort(lambda a,b: cmp(b.when,a.when))
     return together
+
+def stats(days=30):
+    """ return total expenses, total incomes, and difference """
+    cutoff = datetime.now() - timedelta(days=days)
+    expenses = sum([e.amount for e in Expense.objects.filter(when__gte=cutoff)])
+    incomes = sum([i.amount for i in Income.objects.filter(when__gte=cutoff)])    
+    return dict(expenses=expenses,incomes=incomes,net=incomes-expenses)

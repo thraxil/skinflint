@@ -92,6 +92,8 @@ ul.tabbernav li.tabberactive a:hover
  border: 0;
 }
 
+th {text-align: left;}
+
 tr.even th { background-color: #eee;}
 tr.even td  { background-color: #eee;}
 tr.income td {color: #090;}
@@ -101,3 +103,11 @@ td {vertical-align: top;}
 .negative {color: #900;}
 
 td.amount {text-align: right;}
+
+h2 {font-size: 1.2em; width: 100%; background-color: #efe; border-top: #999 solid 1px;}
+h3 {font-size: 1em; width: 100%; background-color: #efe; border-top: #ddd solid 1px;}
+
+table.ledger {border: #aaa solid 1px; border-collapse: collapse; margin-right: 2em;}
+table.ledger td {border-bottom: #aaa solid 1px; padding: 0px;}
+table.ledger th {border-bottom: #aaa solid 1px; padding: 0px;}
+
