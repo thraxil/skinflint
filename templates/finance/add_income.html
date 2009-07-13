@@ -14,7 +14,7 @@
 
 <input type="text" size="50" id="messages"  />
 
-<table>
+<table class="ledger">
   <tr>
     <th>
       Income:
@@ -45,7 +45,7 @@
   </tr>
 
   {% for budget in budgets %}
-  <tr>
+  <tr class="{% cycle 'even' 'odd' %}">
     <th>{{budget.name}}</th>
     <td><input class="budget" type="text" name="income_{{budget.id}}"
     value="{{budget.amount}}" id="income-{{budget.name}}" 

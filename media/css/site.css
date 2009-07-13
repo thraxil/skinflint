@@ -104,10 +104,21 @@ td {vertical-align: top;}
 
 td.amount {text-align: right;}
 
-h2 {font-size: 1.2em; width: 100%; background-color: #efe; border-top: #999 solid 1px;}
+h2 {font-size: 1.2em; width: 100%; background-color: #efe; }
 h3 {font-size: 1em; width: 100%; background-color: #efe; border-top: #ddd solid 1px;}
 
 table.ledger {border: #aaa solid 1px; border-collapse: collapse; margin-right: 2em;}
 table.ledger td {border-bottom: #aaa solid 1px; padding: 0px;}
-table.ledger th {border-bottom: #aaa solid 1px; padding: 0px; padding-left: .5em;}
+table.ledger th {border-bottom: #aaa solid 1px; padding: 0px; 
+		 padding-left: .5em;
+		 padding-right: .5em;
+		}
 
+a:link, a:visited { color: #030;}
+
+table.ledger td input { border: 0px; text-align: right;}
+
+body { margin: 0px;}
+
+#nav { width: 100%; background-color: #030;}
+#nav a:link, #nav a:visited { color: #fff;}
