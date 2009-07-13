@@ -24,7 +24,7 @@ USE_I18N = False
 MEDIA_ROOT = "/var/www/skinflint/uploads/"
 MEDIA_URL = '/uploads/'
 ADMIN_MEDIA_PREFIX = '/media/'
-SECRET_KEY = ')ng#)ef_u@_^zvvu@dxm7ql-yb^_!a6%v3v^j3b(mp+)l+5%@h'
+SECRET_KEY = '@#$%asdfQWErbCy4SDb02kl;jq#$tvb;ju'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
