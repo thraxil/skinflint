@@ -8,6 +8,9 @@
 <p>amount: {{ budget.amount }}</p>
 <p><a href="/admin/finance/budget/{{budget.id}}/">edit</a></p>
 
+<table>
+<tr>
+<td>
 <form action="add_expense/" method="post">
   <h3>add expense</h3>
   <table>
@@ -15,7 +18,8 @@
   </table>
   <input type="submit" value="add" />
 </form>
-
+</td>
+<td>
 <form action="transfer/" method="post">
   <h3>transfer</h3>
   <table>
@@ -36,29 +40,32 @@
   </table>
   <input type="submit" value="transfer"/>
 </form>
+</td>
+</tr>
 
-<h3>incomes</h3>
-<table>
-{% for income in budget.income_set.all %}
 <tr>
-  <th>{{income.label}}</th>
-  <td>{{income.when}}</td>
-  <td>{{income.amount}}</td>
+<td colspan="2">
+
+<table style="width: 100%">
+<tr>
+  <th>date</th>
+  <th>label</th>
+  <th>amount</th>
+</tr>
+
+{% for entry in budget.ledger %}
+<tr class="{% cycle 'even' 'odd' %} {% if entry.is_income %}income{% endif %}">
+  <th class="date">{% ifchanged entry.when %}{{ entry.when|date:"M d" }}{% endifchanged %}</th>
+  <td>{{ entry.label }}</td>
+  <td class="amount">${{ entry.amount }}</td>
 </tr>
 {% endfor %}
 </table>
 
-<h3>expenses</h3>
-<table>
-{% for expense in budget.expense_set.all %}
-<tr class="{% cycle 'even' 'odd'%}">
-  <th>{{expense.label}}</th>
-  <td>{{expense.when}}</td>
-  <td>${{expense.amount}}</td>
+</td>
 </tr>
-{% endfor %}
-</table>
 
+</table>
 
 {% endblock %}
 

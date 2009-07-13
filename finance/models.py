@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 from django import forms
+from datetime import datetime,date,timedelta
 
 class Budget(models.Model):
     name = models.CharField(max_length=256)
@@ -19,6 +20,19 @@ class Budget(models.Model):
     def get_transfer_form(self):
         return None
 
+    def negative_balance(self):
+        return self.balance < 0
+
+    def ledger(self,days=365):
+        """ return all expenses and incomes in the time frame listed,
+        ordered by date """
+        cutoff = datetime.now() - timedelta(days=days)
+        expenses = list(Expense.objects.filter(budget=self,when__gte=cutoff))
+        incomes = list(Income.objects.filter(budget=self,when__gte=cutoff))
+        together = expenses + incomes
+        together.sort(lambda a,b: cmp(b.when,a.when))
+        return together
+
 class Income(models.Model):
     label = models.CharField(max_length=256)
     amount = models.IntegerField()
@@ -30,6 +44,10 @@ class Income(models.Model):
 
     def __unicode__(self):
         return "%s <- $%d" % (self.budget.name,self.amount)
+
+    # handy for ledger views
+    def is_expense(self): return False
+    def is_income(self): return True
     
 class Expense(models.Model):
     label = models.CharField(max_length=256,blank=True,null=True)
@@ -43,4 +61,16 @@ class Expense(models.Model):
     def  __unicode__(self):
         return "%s: $%d -> %s"  % (self.label,self.amount,self.budget.name)
 
+    # handy for ledger views
+    def is_expense(self): return True
+    def is_income(self): return False
 
+def ledger(days=30):
+    """ return all expenses and incomes in the time frame listed,
+    ordered by date """
+    cutoff = datetime.now() - timedelta(days=days)
+    expenses = list(Expense.objects.filter(when__gte=cutoff))
+    incomes = list(Income.objects.filter(when__gte=cutoff))
+    together = expenses + incomes
+    together.sort(lambda a,b: cmp(b.when,a.when))
+    return together

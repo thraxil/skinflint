@@ -92,5 +92,12 @@ ul.tabbernav li.tabberactive a:hover
  border: 0;
 }
 
-tr.even th { background-color: #ddd;}
-tr.even td  { background-color: #ddd;}
+tr.even th { background-color: #eee;}
+tr.even td  { background-color: #eee;}
+tr.income td {color: #090;}
+tr.income th {color: #090;}
+
+td {vertical-align: top;}
+.negative {color: #900;}
+
+td.amount {text-align: right;}

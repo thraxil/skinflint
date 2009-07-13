@@ -28,6 +28,7 @@ class rendered_with(object):
 @rendered_with('finance/index.html')
 def index(request):
     return dict(budgets=Budget.objects.all(),
+                ledger=ledger(days=30),
                 total=sum([b.balance for b in Budget.objects.all()]))
 
 @login_required

@@ -1,7 +1,30 @@
 {%  extends 'base.html' %}
-
 {% block content %}
 
+<p>current balance: <b>${{total}}</b></p>
+
+<table>
+<tr>
+<td>
+<table>
+<tr>
+  <th>date</th>
+  <th>label</th>
+  <th>budget</th>
+  <th>amount</th>
+</tr>
+
+{% for entry in ledger %}
+<tr class="{% cycle 'even' 'odd' %} {% if entry.is_income %}income{% endif %}">
+  <th class="date">{% ifchanged entry.when %}{{ entry.when|date:"M d" }}{% endifchanged %}</th>
+  <td>{{ entry.label }}</td>
+  <td><a href="{{entry.budget.get_absolute_url}}">{{ entry.budget.name }}</a></td>
+  <td class="amount">${{ entry.amount }}</td>
+</tr>
+{% endfor %}
+</table>
+</td>
+<td>
 <table>
   <tr>
     <th>budget</th>
@@ -11,11 +34,13 @@
   {% for budget in budgets %}
   <tr class="{% cycle 'even' 'odd'%}">
     <th><a href="{{budget.get_absolute_url}}">{{budget.name}}</a></th>
-    <td>${{budget.balance}}</td>
+    <td class="amount">{% if budget.negative_balance %}<span class="negative">{% endif %}${{budget.balance}}{% if budget.negative_balance %}</span>{% endif %}</td>
   </tr>
   {% endfor %}
 </table>
+</td>
+</tr>
+</table>
 
-<p>total balance: ${{total}}</p>
 
 {% endblock %}
