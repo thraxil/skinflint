@@ -24,11 +24,13 @@ class rendered_with(object):
  
         return rendered_func
 
+@login_required
 @rendered_with('finance/index.html')
 def index(request):
     return dict(budgets=Budget.objects.all(),
                 total=sum([b.balance for b in Budget.objects.all()]))
 
+@login_required
 @rendered_with('finance/add_income.html')
 def add_income(request):
     if request.method == "POST":
@@ -52,7 +54,7 @@ def add_income(request):
                                            
     return dict(budgets=Budget.objects.all())
         
-
+@login_required
 @rendered_with('finance/add_budget.html')
 def add_budget(request):
     if request.method == "POST":
@@ -65,6 +67,7 @@ def add_budget(request):
 
     return  {'form': form }
 
+@login_required
 @rendered_with('finance/budget.html')    
 def budget(request,id):
     budget = get_object_or_404(Budget,id=id)
@@ -74,6 +77,7 @@ def budget(request,id):
                 all_budgets=Budget.objects.all(),
                 )
 
+@login_required
 def add_expense(request,id):
     budget = get_object_or_404(Budget,id=id)
     if request.method == "POST":
@@ -89,6 +93,7 @@ def add_expense(request,id):
         budget.save()
     return HttpResponseRedirect('/') 
 
+@login_required
 def transfer(request,id):
     source = get_object_or_404(Budget,id=id)
     if request.method == "POST":
