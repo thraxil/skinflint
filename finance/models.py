@@ -45,7 +45,8 @@ class Budget(models.Model):
         cutoff = datetime.now() - timedelta(days=days)
         expenses = sum([e.amount for e in Expense.objects.filter(budget=self,when__gte=cutoff)])
         incomes = sum([i.amount for i in Income.objects.filter(budget=self,when__gte=cutoff)])    
-        return dict(expenses=expenses,incomes=incomes,net=incomes-expenses)
+        return dict(expenses=expenses,incomes=incomes,net=incomes-expenses,
+                avg="%.02f" % (float(incomes-expenses)/days))
 
 
 class Income(models.Model):
@@ -102,4 +103,5 @@ def stats(days=30):
     cutoff = datetime.now() - timedelta(days=days)
     expenses = sum([e.amount for e in Expense.objects.filter(when__gte=cutoff)])
     incomes = sum([i.amount for i in Income.objects.filter(when__gte=cutoff)])    
-    return dict(expenses=expenses,incomes=incomes,net=incomes-expenses)
+    return dict(expenses=expenses,incomes=incomes,net=incomes-expenses,
+                avg="%.02f" % (float(incomes-expenses)/days))
