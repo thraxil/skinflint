@@ -1,4 +1,5 @@
 {%  extends 'base.html' %}
+{% load currencyfilter_tags %}
 {% block title %}summary{% endblock %}
 {% block content %}
 
@@ -20,15 +21,15 @@
   <th class="date">{% ifchanged entry.when %}{{ entry.when|date:"M d" }}{% endifchanged %}</th>
   <td>{{ entry.label }}</td>
   <td><a href="{{entry.budget.get_absolute_url}}">{{ entry.budget.name }}</a></td>
-  <td class="amount">${{ entry.amount }}</td>
-  <td class="amount">${{ entry.running_total }}</td>
+  <td class="amount">{{ entry.amount|currency }}</td>
+  <td class="amount">{{ entry.running_total|currency }}</td>
 </tr>
 {% endfor %}
 </table>
 </td>
 <td>
 <h2>summary</h2>
-<p>current balance: <b>${{total}}</b></p>
+<p>current balance: <b>{{total|currency}}</b></p>
 <table class="ledger" style="width: 100%">
   <tr class="even">
     <th></th>
@@ -39,30 +40,30 @@
 
   <tr class="odd income">
     <th>income</th>
-    <td class="amount">${{ stats_year.incomes }}</td>
-    <td class="amount">${{ stats_month.incomes }}</td>
-    <td class="amount">${{ stats_week.incomes }}</td>
+    <td class="amount">{{ stats_year.incomes|currency }}</td>
+    <td class="amount">{{ stats_month.incomes|currency }}</td>
+    <td class="amount">{{ stats_week.incomes|currency }}</td>
   </tr>
 
   <tr class="even">
     <th>expense</th>
-    <td class="amount">${{ stats_year.expenses }}</td>
-    <td class="amount">${{ stats_month.expenses }}</td>
-    <td class="amount">${{ stats_week.expenses }}</td>
+    <td class="amount">{{ stats_year.expenses|currency }}</td>
+    <td class="amount">{{ stats_month.expenses|currency }}</td>
+    <td class="amount">{{ stats_week.expenses|currency }}</td>
   </tr>
 
   <tr class="odd">
     <th>net</th>
-    <td class="amount">${{ stats_year.net }}</td>
-    <td class="amount">${{ stats_month.net }}</td>
-    <td class="amount">${{ stats_week.net }}</td>
+    <td class="amount">{{ stats_year.net|currency }}</td>
+    <td class="amount">{{ stats_month.net|currency }}</td>
+    <td class="amount">{{ stats_week.net|currency }}</td>
   </tr>
 
   <tr class="even">
     <th>avg/day</th>
-    <td class="amount">${{ stats_year.avg }}</td>
-    <td class="amount">${{ stats_month.avg }}</td>
-    <td class="amount">${{ stats_week.avg }}</td>
+    <td class="amount">{{ stats_year.avg|currency }}</td>
+    <td class="amount">{{ stats_month.avg|currency }}</td>
+    <td class="amount">{{ stats_week.avg|currency }}</td>
   </tr>
 
 </table>
@@ -78,7 +79,7 @@
   {% for budget in budgets %}
   <tr class="{% cycle 'even' 'odd'%}">
     <th><a href="{{budget.get_absolute_url}}">{{budget.name}}</a></th>
-    <td class="amount">{% if budget.negative_balance %}<span class="negative">{% endif %}${{budget.balance}}{% if budget.negative_balance %}</span>{% endif %}</td>
+    <td class="amount">{% if budget.negative_balance %}<span class="negative">{% endif %}{{budget.balance|currency}}{% if budget.negative_balance %}</span>{% endif %}</td>
   </tr>
   {% endfor %}
 </table>

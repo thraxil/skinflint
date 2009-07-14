@@ -1,4 +1,5 @@
 {%  extends 'base.html' %}
+{% load currencyfilter_tags %}
 {% block title %}summary{% endblock %}
 {% block content %}
 
@@ -8,8 +9,8 @@
 <table>
 <tr>
 <td colspan="2">
-<p>current balance: {{ budget.balance }}</p>
-<p>amount: {{ budget.amount }}</p>
+<p>current balance: <b>{{ budget.balance|currency }}</b></p>
+<p>amount: {{ budget.amount|currency }}</p>
 <p><a href="/admin/finance/budget/{{budget.id}}/">edit</a></p>
 
 <table class="ledger" style="width: 100%">
@@ -22,30 +23,30 @@
 
   <tr class="odd income">
     <th>income</th>
-    <td class="amount">${{ stats_year.incomes }}</td>
-    <td class="amount">${{ stats_month.incomes }}</td>
-    <td class="amount">${{ stats_week.incomes }}</td>
+    <td class="amount">{{ stats_year.incomes|currency }}</td>
+    <td class="amount">{{ stats_month.incomes|currency }}</td>
+    <td class="amount">{{ stats_week.incomes|currency }}</td>
   </tr>
 
   <tr class="even">
     <th>expense</th>
-    <td class="amount">${{ stats_year.expenses }}</td>
-    <td class="amount">${{ stats_month.expenses }}</td>
-    <td class="amount">${{ stats_week.expenses }}</td>
+    <td class="amount">{{ stats_year.expenses|currency }}</td>
+    <td class="amount">{{ stats_month.expenses|currency }}</td>
+    <td class="amount">{{ stats_week.expenses|currency }}</td>
   </tr>
 
   <tr class="odd">
     <th>net</th>
-    <td class="amount">${{ stats_year.net }}</td>
-    <td class="amount">${{ stats_month.net }}</td>
-    <td class="amount">${{ stats_week.net }}</td>
+    <td class="amount">{{ stats_year.net|currency }}</td>
+    <td class="amount">{{ stats_month.net|currency }}</td>
+    <td class="amount">{{ stats_week.net|currency }}</td>
   </tr>
 
   <tr class="even">
     <th>avg/day</th>
-    <td class="amount">${{ stats_year.avg }}</td>
-    <td class="amount">${{ stats_month.avg }}</td>
-    <td class="amount">${{ stats_week.avg }}</td>
+    <td class="amount">{{ stats_year.avg|currency }}</td>
+    <td class="amount">{{ stats_month.avg|currency }}</td>
+    <td class="amount">{{ stats_week.avg|currency }}</td>
   </tr>
 
 </table>
@@ -102,8 +103,8 @@
 <tr class="{% cycle 'even' 'odd' %} {% if entry.is_income %}income{% endif %}">
   <th class="date">{% ifchanged entry.when %}{{ entry.when|date:"M d" }}{% endifchanged %}</th>
   <td>{{ entry.label }}</td>
-  <td class="amount">${{ entry.amount }}</td>
-  <td class="amount">${{ entry.running_total }}</td>
+  <td class="amount">{{ entry.amount|currency }}</td>
+  <td class="amount">{{ entry.running_total|currency }}</td>
 </tr>
 {% endfor %}
 </table>
