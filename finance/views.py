@@ -34,6 +34,15 @@ def index(request):
                 stats_year=stats(days=365),
                 total=sum([b.balance for b in Budget.objects.all()]))
 
+@rendered_with('finance/stats.html')
+def stats_summary(request):
+    return dict(budgets=Budget.objects.all(),
+                stats_week=stats(days=7),
+                stats_month=stats(days=30),
+                stats_year=stats(days=365),
+                total=sum([b.balance for b in Budget.objects.all()]))
+
+
 @login_required
 @rendered_with('finance/add_income.html')
 def add_income(request):

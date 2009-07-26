@@ -1,0 +1,13 @@
+year income: {{ stats_year.incomes }}
+month income: {{ stats_month.incomes }}
+week income: {{ stats_week.incomes }}
+year expense: {{ stats_year.expenses }}
+month expense: {{ stats_month.expenses }}
+week expense: {{ stats_week.expenses }}
+year net: {{ stats_year.net }}
+month net: {{ stats_month.net }}
+week net: {{ stats_week.net }}
+year avg: {{ stats_year.avg }}
+month avg: {{ stats_month.avg }}
+week avg: {{ stats_week.avg }}{% for budget in budgets %}
+budget {{budget.name}}: {{budget.balance}}{% endfor %}
