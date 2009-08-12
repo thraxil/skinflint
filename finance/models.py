@@ -83,8 +83,8 @@ def ledger(days=30):
     """ return all expenses and incomes in the time frame listed,
     ordered by date """
     cutoff = datetime.now() - timedelta(days=days)
-    expenses = list(Expense.objects.filter(when__gte=cutoff).exclude(label__icontains="transfer"))
-    incomes = list(Income.objects.filter(when__gte=cutoff).exclude(label__icontains="transfer"))
+    expenses = list(Expense.objects.filter(when__gte=cutoff))
+    incomes = list(Income.objects.filter(when__gte=cutoff))
     together = expenses + incomes
     together.sort(lambda a,b: cmp(b.when,a.when))
     running_total=sum([b.balance for b in Budget.objects.all()])
