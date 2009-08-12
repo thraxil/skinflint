@@ -1,7 +1,5 @@
 from django.db import models
-from django.forms import ModelForm
-from django import forms
-from datetime import datetime,date,timedelta
+from datetime import datetime,timedelta
 
 class Budget(models.Model):
     name = models.CharField(max_length=256)
@@ -85,8 +83,8 @@ def ledger(days=30):
     """ return all expenses and incomes in the time frame listed,
     ordered by date """
     cutoff = datetime.now() - timedelta(days=days)
-    expenses = list(Expense.objects.filter(when__gte=cutoff))
-    incomes = list(Income.objects.filter(when__gte=cutoff))
+    expenses = list(Expense.objects.filter(when__gte=cutoff).exclude(label__icontains="transfer"))
+    incomes = list(Income.objects.filter(when__gte=cutoff).exclude(label__icontains="transfer"))
     together = expenses + incomes
     together.sort(lambda a,b: cmp(b.when,a.when))
     running_total=sum([b.balance for b in Budget.objects.all()])
@@ -101,7 +99,7 @@ def ledger(days=30):
 def stats(days=30):
     """ return total expenses, total incomes, and difference """
     cutoff = datetime.now() - timedelta(days=days)
-    expenses = sum([e.amount for e in Expense.objects.filter(when__gte=cutoff)])
-    incomes = sum([i.amount for i in Income.objects.filter(when__gte=cutoff)])    
+    expenses = sum([e.amount for e in Expense.objects.filter(when__gte=cutoff).exclude(label__icontains="transfer")])
+    incomes = sum([i.amount for i in Income.objects.filter(when__gte=cutoff).exclude(label__icontains="transfer")])    
     return dict(expenses=expenses,incomes=incomes,net=incomes-expenses,
                 avg=(float(incomes-expenses)/days))
