@@ -94,6 +94,21 @@ def budget(request,id):
                 )
 
 @login_required
+@rendered_with('finance/edit_budget.html')    
+def edit_budget(request,id):
+    budget = get_object_or_404(Budget,id=id)
+    if request.method == "POST":
+        form = EditBudgetForm(request.POST,instance=budget)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(budget.get_absolute_url())
+    else:
+        form = EditBudgetForm(instance=budget)
+
+    return dict(budget=budget,
+                form=form)
+
+@login_required
 def add_expense(request,id):
     budget = get_object_or_404(Budget,id=id)
     if request.method == "POST":

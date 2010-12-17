@@ -1,0 +1,17 @@
+{%  extends 'base.html' %}
+{% load currencyfilter_tags %}
+{% block title %}summary{% endblock %}
+{% block content %}
+
+<h2>{{budget.name}}</h2>
+
+<form action="." method="post">
+<table>
+{{form.as_table}}
+</table>
+<input type="submit" value="save" />
+</form>
+
+
+{% endblock %}
+
