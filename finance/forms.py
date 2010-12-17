@@ -1,6 +1,7 @@
 from models import *
 
 from django.forms import ModelForm
+import django.forms
 
 class BudgetForm(ModelForm):
     class Meta:
@@ -15,3 +16,11 @@ class AddExpenseForm(ModelForm):
     class Meta:
         model = Expense
         exclude = ('budget',)
+
+class QuickAddExpenseForm(ModelForm):
+    class Meta:
+        model = Expense
+        widgets = {
+            'when': django.forms.TextInput(attrs={'size':10}),
+            'amount' : django.forms.TextInput(attrs={'size':6}),
+            }

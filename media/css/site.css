@@ -122,3 +122,6 @@ body { margin: 0px;}
 
 #nav { width: 100%; background-color: #030;}
 #nav a:link, #nav a:visited { color: #fff;}
+
+tr.quickadd td {background-color: green;}
+tr.quickadd td input#id_label {width: 100%;}

@@ -10,6 +10,7 @@ urlpatterns = patterns('',
                        # Example:
                        # (r'^skinflint/', include('skinflint.foo.urls')),
                        ('^$','finance.views.index'),
+                       ('^quickadd/$','finance.views.quickadd'),
                        ('^stats/$','finance.views.stats_summary'),
                        ('^add_budget/$','finance.views.add_budget'),
                        ('^add_income/$','finance.views.add_income'),
