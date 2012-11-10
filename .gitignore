@@ -1,2 +1,5 @@
 *.pyc
 local_settings.py
+ve
+pip-log.txt
+distribute*.tar.gz
