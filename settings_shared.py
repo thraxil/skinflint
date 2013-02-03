@@ -88,6 +88,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'skinflint.finance',
     'currencyfilter',
+    'south',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
