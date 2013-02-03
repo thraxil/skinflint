@@ -49,7 +49,7 @@ class Budget(models.Model):
                        in Income.objects.filter(budget=self,
                                                 when__gte=cutoff)])
         return dict(expenses=expenses, incomes=incomes, net=incomes - expenses,
-                avg=(float(incomes - expenses) / days))
+                    avg=(float(incomes - expenses) / days))
 
 
 class Income(models.Model):
@@ -115,9 +115,10 @@ def stats(days=30):
     cutoff = datetime.now() - timedelta(days=days)
     expenses = sum([e.amount for e
                     in Expense.objects.filter(
-                when__gte=cutoff).exclude(label__icontains="transfer")])
+                        when__gte=cutoff).exclude(
+                            label__icontains="transfer")])
     incomes = sum([i.amount for i
                    in Income.objects.filter(
-                when__gte=cutoff).exclude(label__icontains="transfer")])
+                       when__gte=cutoff).exclude(label__icontains="transfer")])
     return dict(expenses=expenses, incomes=incomes, net=incomes - expenses,
                 avg=(float(incomes - expenses) / days))

@@ -26,4 +26,4 @@ class QuickAddExpenseForm(ModelForm):
         widgets = {
             'when': django.forms.TextInput(attrs={'size': 10}),
             'amount': django.forms.TextInput(attrs={'size': 6}),
-            }
+        }

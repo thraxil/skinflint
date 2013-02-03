@@ -98,7 +98,7 @@ def budget(request, id):
         stats_week=budget.stats(days=7),
         stats_month=budget.stats(days=30),
         stats_year=budget.stats(days=365),
-        )
+    )
 
 
 @login_required
