@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'currencyfilter',
     'south',
     'django_statsd',
+    'gunicorn',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
