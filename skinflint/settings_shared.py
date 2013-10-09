@@ -89,7 +89,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     'django.contrib.admin',
     'skinflint.finance',
-    'currencyfilter',
+    'skinflint.currencyfilter',
     'south',
     'django_statsd',
     'gunicorn',
@@ -118,3 +118,9 @@ STATSD_PREFIX = 'skinflint'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
 STATSD_PATCHES = ['django_statsd.patches.db', ]
+ALLOWED_HOSTS = ['localhost', '.thraxil.org']
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+}
