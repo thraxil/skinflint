@@ -3,6 +3,7 @@ from fabric.api import run, sudo, local, cd, env
 env.hosts = ['oolong.thraxil.org', 'maru.thraxil.org']
 nginx_hosts = ['lilbub.thraxil.org', 'lolrus.thraxil.org']
 env.user = 'anders'
+env.forward_agent = True
 
 def restart_gunicorn():
     sudo("restart skinflint")
