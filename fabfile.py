@@ -19,6 +19,6 @@ def deploy():
         run("./manage.py collectstatic --noinput --settings=skinflint.settings_production")
         for n in nginx_hosts:
             run(("rsync -avp --delete media/ "
-                 "%s:/var/www/myopica/myopica/media/") % n)
+                 "%s:/var/www/skinflint/skinflint/media/") % n)
 
     restart_gunicorn()
