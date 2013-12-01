@@ -57,6 +57,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
+    'django.core.context_processors.static',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,11 +85,23 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.markup',
     'django.contrib.admin',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'skinflint.finance',
     'skinflint.currencyfilter',
     'south',
     'django_statsd',
     'gunicorn',
+)
+
+STATIC_URL = "/media/"
+STATICFILES_DIRS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "../media/")),
+)
+STATIC_ROOT = ""
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 THUMBNAIL_SUBDIR = "thumbs"
