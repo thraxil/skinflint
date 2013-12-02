@@ -94,7 +94,6 @@ class BudgetView(LoggedInMixin, DetailView):
 
 class EditBudgetView(LoggedInMixin, UpdateView):
     model = Budget
-    template_name = 'finance/edit_budget.html'
     form = EditBudgetForm
 
 
