@@ -79,7 +79,6 @@ class AddBudgetView(LoggedInMixin, CreateView):
 
 class BudgetView(LoggedInMixin, DetailView):
     model = Budget
-    template_name = 'finance/budget.html'
     context_object_name = 'budget'
 
     def get_context_data(self, **kwargs):
