@@ -79,11 +79,10 @@ class AddBudgetView(LoggedInMixin, CreateView):
 
 class BudgetView(LoggedInMixin, DetailView):
     model = Budget
-    context_object_name = 'budget'
 
     def get_context_data(self, **kwargs):
         context = super(BudgetView, self).get_context_data(**kwargs)
-        budget = context['budget']
+        budget = context['object']
         context['addexpenseform'] = AddExpenseForm(
             {'when': date.today().isoformat()})
         context['transferform'] = budget.get_transfer_form()

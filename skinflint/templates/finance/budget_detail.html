@@ -3,15 +3,15 @@
 {% block title %}summary{% endblock %}
 {% block content %}
 
-<h2>{{budget.name}}</h2>
+<h2>{{object.name}}</h2>
 
 
 <table>
 <tr>
 <td colspan="2">
-<p>current balance: <b>{{ budget.balance|currency }}</b></p>
-<p>amount: {{ budget.amount|currency }}</p>
-<p><a href="/budgets/{{budget.id}}/edit/">edit</a></p>
+<p>current balance: <b>{{ object.balance|currency }}</b></p>
+<p>amount: {{ object.amount|currency }}</p>
+<p><a href="/budgets/{{object.id}}/edit/">edit</a></p>
 
 <table class="ledger" style="width: 100%">
   <tr class="even">
@@ -77,7 +77,7 @@
       <td>
 	<select name="target">
 	  {% for b in all_budgets %}
-	  {%  ifnotequal budget.id  b.id %}
+	  {%  ifnotequal object.id  b.id %}
 	  <option value="{{b.id}}">{{b.name}}</option>
 	  {% endifnotequal %}
 	  {% endfor %}
@@ -99,7 +99,7 @@
   <th>balance</th>
 </tr>
 
-{% for entry in budget.ledger %}
+{% for entry in object.ledger %}
 <tr class="{% cycle 'even' 'odd' %} {% if entry.is_income %}income{% endif %}">
   <th class="date">{% ifchanged entry.when %}{{ entry.when|date:"M d" }}{% endifchanged %}</th>
   <td>{{ entry.label }}</td>
