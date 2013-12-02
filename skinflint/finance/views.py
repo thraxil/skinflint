@@ -47,13 +47,15 @@ class IndexView(LoggedInMixin, TemplateView):
             total=sum([b.balance for b in Budget.objects.all()]))
 
 
-@rendered_with('finance/stats.html')
-def stats_summary(request):
-    return dict(budgets=Budget.objects.all(),
-                stats_week=stats(days=7),
-                stats_month=stats(days=30),
-                stats_year=stats(days=365),
-                total=sum([b.balance for b in Budget.objects.all()]))
+class StatsView(TemplateView):
+    template_name = 'finance/stats.html'
+
+    def get_context_data(self):
+        return dict(budgets=Budget.objects.all(),
+                    stats_week=stats(days=7),
+                    stats_month=stats(days=30),
+                    stats_year=stats(days=365),
+                    total=sum([b.balance for b in Budget.objects.all()]))
 
 
 @login_required
