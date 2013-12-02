@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView, View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from .models import Budget, ledger, stats, Income, Expense
 from .forms import QuickAddExpenseForm, BudgetForm, AddExpenseForm
 from .forms import EditBudgetForm
@@ -110,20 +110,10 @@ def budget(request, id):
     )
 
 
-@login_required
-@rendered_with('finance/edit_budget.html')
-def edit_budget(request, id):
-    budget = get_object_or_404(Budget, id=id)
-    if request.method == "POST":
-        form = EditBudgetForm(request.POST, instance=budget)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(budget.get_absolute_url())
-    else:
-        form = EditBudgetForm(instance=budget)
-
-    return dict(budget=budget,
-                form=form)
+class EditBudgetView(LoggedInMixin, UpdateView):
+    model = Budget
+    template_name = 'finance/edit_budget.html'
+    form = EditBudgetForm
 
 
 @login_required

@@ -15,7 +15,7 @@ urlpatterns = patterns(
     ('^budgets/(?P<id>\d+)/add_expense/$',
      'skinflint.finance.views.add_expense'),
     ('^budgets/(?P<id>\d+)/transfer/$', 'skinflint.finance.views.transfer'),
-    ('^budgets/(?P<id>\d+)/edit/$', 'skinflint.finance.views.edit_budget'),
+    ('^budgets/(?P<pk>\d+)/edit/$', views.EditBudgetView.as_view()),
     ('^accounts/', include('djangowind.urls')),
     (r'^admin/(.*)', include(admin.site.urls)),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
