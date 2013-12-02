@@ -2,9 +2,10 @@ from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from .models import Budget, ledger, stats, Income, Expense
 from .forms import QuickAddExpenseForm, BudgetForm, AddExpenseForm
 from .forms import EditBudgetForm
@@ -58,10 +59,10 @@ class StatsView(TemplateView):
                     total=sum([b.balance for b in Budget.objects.all()]))
 
 
-@login_required
-@rendered_with('finance/add_income.html')
-def add_income(request):
-    if request.method == "POST":
+class AddIncomeView(LoggedInMixin, View):
+    template_name = 'finance/add_income.html'
+
+    def post(self, request):
         date = request.POST.get('date', '')
         if date == '':
             date = datetime.now()
@@ -79,7 +80,10 @@ def add_income(request):
             budget.balance += amount
             budget.save()
         return HttpResponseRedirect("/")
-    return dict(budgets=Budget.objects.all())
+
+    def get(self, request):
+        return render(request, self.template_name,
+                      dict(budgets=Budget.objects.all()))
 
 
 @login_required

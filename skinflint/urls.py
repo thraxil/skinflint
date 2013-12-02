@@ -10,7 +10,7 @@ urlpatterns = patterns(
     ('^quickadd/$', 'skinflint.finance.views.quickadd'),
     ('^stats/$', views.StatsView.as_view()),
     ('^add_budget/$', 'skinflint.finance.views.add_budget'),
-    ('^add_income/$', 'skinflint.finance.views.add_income'),
+    ('^add_income/$', views.AddIncomeView.as_view()),
     ('^budgets/(?P<id>\d+)/$', 'skinflint.finance.views.budget'),
     ('^budgets/(?P<id>\d+)/add_expense/$',
      'skinflint.finance.views.add_expense'),
