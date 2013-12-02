@@ -149,10 +149,9 @@ class QuickAddView(LoggedInMixin, View):
         return HttpResponseRedirect('/')
 
 
-@login_required
-def transfer(request, id):
-    source = get_object_or_404(Budget, id=id)
-    if request.method == "POST":
+class TransferView(LoggedInMixin, View):
+    def post(self, request, id):
+        source = get_object_or_404(Budget, id=id)
         target = get_object_or_404(Budget, id=request.POST['target'])
         amount = int(request.POST.get('amount', '0'))
         when = datetime.now()
@@ -164,4 +163,4 @@ def transfer(request, id):
         target.balance += amount
         source.save()
         target.save()
-    return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')

@@ -13,7 +13,7 @@ urlpatterns = patterns(
     ('^add_income/$', views.AddIncomeView.as_view()),
     ('^budgets/(?P<pk>\d+)/$', views.BudgetView.as_view()),
     ('^budgets/(?P<id>\d+)/add_expense/$', views.AddExpenseView.as_view()),
-    ('^budgets/(?P<id>\d+)/transfer/$', 'skinflint.finance.views.transfer'),
+    ('^budgets/(?P<id>\d+)/transfer/$', views.TransferView.as_view()),
     ('^budgets/(?P<pk>\d+)/edit/$', views.EditBudgetView.as_view()),
     ('^accounts/', include('djangowind.urls')),
     (r'^admin/(.*)', include(admin.site.urls)),
