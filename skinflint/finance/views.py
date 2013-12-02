@@ -1,9 +1,7 @@
 from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.shortcuts import render
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
@@ -17,22 +15,6 @@ class LoggedInMixin(object):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(LoggedInMixin, self).dispatch(*args, **kwargs)
-
-
-class rendered_with(object):
-    def __init__(self, template_name):
-        self.template_name = template_name
-
-    def __call__(self, func):
-        def rendered_func(request, *args, **kwargs):
-            items = func(request, *args, **kwargs)
-            if isinstance(items, dict):
-                return render_to_response(
-                    self.template_name, items,
-                    context_instance=RequestContext(request))
-            else:
-                return items
-        return rendered_func
 
 
 class IndexView(LoggedInMixin, TemplateView):
@@ -103,13 +85,13 @@ class BudgetView(LoggedInMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(BudgetView, self).get_context_data(**kwargs)
         budget = context['budget']
-        context['addexpenseform']=AddExpenseForm(
+        context['addexpenseform'] = AddExpenseForm(
             {'when': date.today().isoformat()})
-        context['transferform']=budget.get_transfer_form()
-        context['all_budgets']=Budget.objects.all()
-        context['stats_week']=budget.stats(days=7)
-        context['stats_month']=budget.stats(days=30)
-        context['stats_year']=budget.stats(days=365)
+        context['transferform'] = budget.get_transfer_form()
+        context['all_budgets'] = Budget.objects.all()
+        context['stats_week'] = budget.stats(days=7)
+        context['stats_month'] = budget.stats(days=30)
+        context['stats_year'] = budget.stats(days=365)
         return context
 
 
