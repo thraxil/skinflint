@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView, View
+from django.views.generic.edit import CreateView
 from .models import Budget, ledger, stats, Income, Expense
 from .forms import QuickAddExpenseForm, BudgetForm, AddExpenseForm
 from .forms import EditBudgetForm
@@ -86,18 +87,11 @@ class AddIncomeView(LoggedInMixin, View):
                       dict(budgets=Budget.objects.all()))
 
 
-@login_required
-@rendered_with('finance/add_budget.html')
-def add_budget(request):
-    if request.method == "POST":
-        form = BudgetForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-    else:
-        form = BudgetForm()  # An unbound form
-
-    return {'form': form}
+class AddBudgetView(LoggedInMixin, CreateView):
+    model = Budget
+    form = BudgetForm
+    template_name = 'finance/add_budget.html'
+    success_url = '/'
 
 
 @login_required
