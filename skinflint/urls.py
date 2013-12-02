@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     ('^$', views.IndexView.as_view()),
-    ('^quickadd/$', 'skinflint.finance.views.quickadd'),
+    ('^quickadd/$', views.QuickAddView.as_view()),
     ('^stats/$', views.StatsView.as_view()),
     ('^add_budget/$', views.AddBudgetView.as_view()),
     ('^add_income/$', views.AddIncomeView.as_view()),

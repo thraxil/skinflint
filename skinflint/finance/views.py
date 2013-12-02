@@ -135,9 +135,8 @@ class AddExpenseView(LoggedInMixin, View):
         return HttpResponseRedirect('/')
 
 
-@login_required
-def quickadd(request):
-    if request.method == "POST":
+class QuickAddView(LoggedInMixin, View):
+    def post(self, request):
         form = QuickAddExpenseForm(request.POST)
         e = form.save(commit=False)
         if e.label == "":
@@ -147,7 +146,7 @@ def quickadd(request):
         e.save()
         e.budget.balance -= e.amount
         e.budget.save()
-    return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
 
 
 @login_required
