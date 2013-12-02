@@ -73,7 +73,6 @@ class AddIncomeView(LoggedInMixin, View):
 class AddBudgetView(LoggedInMixin, CreateView):
     model = Budget
     form = BudgetForm
-    template_name = 'finance/add_budget.html'
     success_url = '/'
 
 
