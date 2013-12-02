@@ -119,10 +119,9 @@ class EditBudgetView(LoggedInMixin, UpdateView):
     form = EditBudgetForm
 
 
-@login_required
-def add_expense(request, id):
-    budget = get_object_or_404(Budget, id=id)
-    if request.method == "POST":
+class AddExpenseView(LoggedInMixin, View):
+    def post(self, request, id):
+        budget = get_object_or_404(Budget, id=id)
         form = AddExpenseForm(request.POST)
         e = form.save(commit=False)
         e.budget = budget
@@ -133,7 +132,7 @@ def add_expense(request, id):
         e.save()
         budget.balance -= e.amount
         budget.save()
-    return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
 
 
 @login_required
