@@ -1,11 +1,12 @@
 from django.conf.urls.defaults import patterns, include
 from django.contrib import admin
 from django.conf import settings
+from skinflint.finance import views
 admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    ('^$', 'skinflint.finance.views.index'),
+    ('^$', views.IndexView.as_view()),
     ('^quickadd/$', 'skinflint.finance.views.quickadd'),
     ('^stats/$', 'skinflint.finance.views.stats_summary'),
     ('^add_budget/$', 'skinflint.finance.views.add_budget'),

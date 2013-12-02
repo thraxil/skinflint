@@ -1,11 +1,19 @@
-from django.template import RequestContext
-from django.http import HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, get_object_or_404
 from datetime import datetime, date
-from models import Budget, ledger, stats, Income, Expense
-from forms import QuickAddExpenseForm, BudgetForm, AddExpenseForm
-from forms import EditBudgetForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
+from django.utils.decorators import method_decorator
+from django.views.generic.base import TemplateView
+from .models import Budget, ledger, stats, Income, Expense
+from .forms import QuickAddExpenseForm, BudgetForm, AddExpenseForm
+from .forms import EditBudgetForm
+
+
+class LoggedInMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoggedInMixin, self).dispatch(*args, **kwargs)
 
 
 class rendered_with(object):
@@ -24,18 +32,19 @@ class rendered_with(object):
         return rendered_func
 
 
-@login_required
-@rendered_with('finance/index.html')
-def index(request):
-    return dict(
-        budgets=Budget.objects.all(),
-        ledger=ledger(days=30),
-        stats_week=stats(days=7),
-        stats_month=stats(days=30),
-        stats_year=stats(days=365),
-        quickadd=QuickAddExpenseForm(
-            {'when': date.today().isoformat()}),
-        total=sum([b.balance for b in Budget.objects.all()]))
+class IndexView(LoggedInMixin, TemplateView):
+    template_name = 'finance/index.html'
+
+    def get_context_data(self):
+        return dict(
+            budgets=Budget.objects.all(),
+            ledger=ledger(days=30),
+            stats_week=stats(days=7),
+            stats_month=stats(days=30),
+            stats_year=stats(days=365),
+            quickadd=QuickAddExpenseForm(
+                {'when': date.today().isoformat()}),
+            total=sum([b.balance for b in Budget.objects.all()]))
 
 
 @rendered_with('finance/stats.html')
