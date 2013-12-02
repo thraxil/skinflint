@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic.base import TemplateView, View
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Budget, ledger, stats, Income, Expense
 from .forms import QuickAddExpenseForm, BudgetForm, AddExpenseForm
@@ -94,20 +95,22 @@ class AddBudgetView(LoggedInMixin, CreateView):
     success_url = '/'
 
 
-@login_required
-@rendered_with('finance/budget.html')
-def budget(request, id):
-    budget = get_object_or_404(Budget, id=id)
-    return dict(
-        budget=budget,
-        addexpenseform=AddExpenseForm(
-            {'when': date.today().isoformat()}),
-        transferform=budget.get_transfer_form(),
-        all_budgets=Budget.objects.all(),
-        stats_week=budget.stats(days=7),
-        stats_month=budget.stats(days=30),
-        stats_year=budget.stats(days=365),
-    )
+class BudgetView(LoggedInMixin, DetailView):
+    model = Budget
+    template_name = 'finance/budget.html'
+    context_object_name = 'budget'
+
+    def get_context_data(self, **kwargs):
+        context = super(BudgetView, self).get_context_data(**kwargs)
+        budget = context['budget']
+        context['addexpenseform']=AddExpenseForm(
+            {'when': date.today().isoformat()})
+        context['transferform']=budget.get_transfer_form()
+        context['all_budgets']=Budget.objects.all()
+        context['stats_week']=budget.stats(days=7)
+        context['stats_month']=budget.stats(days=30)
+        context['stats_year']=budget.stats(days=365)
+        return context
 
 
 class EditBudgetView(LoggedInMixin, UpdateView):

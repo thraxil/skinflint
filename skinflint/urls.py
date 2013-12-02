@@ -11,7 +11,7 @@ urlpatterns = patterns(
     ('^stats/$', views.StatsView.as_view()),
     ('^add_budget/$', views.AddBudgetView.as_view()),
     ('^add_income/$', views.AddIncomeView.as_view()),
-    ('^budgets/(?P<id>\d+)/$', 'skinflint.finance.views.budget'),
+    ('^budgets/(?P<pk>\d+)/$', views.BudgetView.as_view()),
     ('^budgets/(?P<id>\d+)/add_expense/$',
      'skinflint.finance.views.add_expense'),
     ('^budgets/(?P<id>\d+)/transfer/$', 'skinflint.finance.views.transfer'),
