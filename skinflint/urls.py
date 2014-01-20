@@ -15,7 +15,7 @@ urlpatterns = patterns(
     ('^budgets/(?P<id>\d+)/add_expense/$', views.AddExpenseView.as_view()),
     ('^budgets/(?P<id>\d+)/transfer/$', views.TransferView.as_view()),
     ('^budgets/(?P<pk>\d+)/edit/$', views.EditBudgetView.as_view()),
-    ('^accounts/', include('djangowind.urls')),
+    (r'^accounts/', include('django.contrib.auth.urls')),
     (r'^admin/(.*)', include(admin.site.urls)),
     (r'^uploads/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': settings.MEDIA_ROOT}),

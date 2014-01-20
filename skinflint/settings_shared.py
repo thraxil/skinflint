@@ -109,22 +109,6 @@ EMAIL_SUBJECT_PREFIX = "[skinflint] "
 EMAIL_HOST = 'localhost'
 SERVER_EMAIL = "skinflint@ccnmtl.columbia.edu"
 
-# WIND settings
-
-AUTHENTICATION_BACKENDS = (
-    'djangowind.auth.WindAuthBackend',
-    'django.contrib.auth.backends.ModelBackend',)
-WIND_BASE = "https://wind.columbia.edu/"
-WIND_SERVICE = "cnmtl_full_np"
-WIND_PROFILE_HANDLERS = ['djangowind.auth.CDAPProfileHandler']
-WIND_AFFIL_HANDLERS = [
-    'djangowind.auth.AffilGroupMapper',
-    'djangowind.auth.StaffMapper',
-    'djangowind.auth.SuperuserMapper']
-WIND_STAFF_MAPPER_GROUPS = ['tlcxml.cunix.local:columbia.edu']
-WIND_SUPERUSER_MAPPER_GROUPS = [
-    'anp8']
-
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
 
