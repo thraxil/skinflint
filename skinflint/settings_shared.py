@@ -83,7 +83,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'django.contrib.markup',
     'django.contrib.admin',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -116,7 +115,6 @@ STATSD_CLIENT = 'statsd.client'
 STATSD_PREFIX = 'skinflint'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
-STATSD_PATCHES = ['django_statsd.patches.db', ]
 ALLOWED_HOSTS = ['localhost', '.thraxil.org']
 
 LOGGING = {
